@@ -15,11 +15,19 @@ awvs的版本迭代历史
 * 11.x - 13.x(当前最新)，awvs把脚本放到了“wvsc_blob.bin”文件中，起初误以为加密了，没承想，经过静态分析后发现程序没加壳，wvsc_blob.bin也没有加密，只是google protobuf协议压缩存储了。简单理解：类似把文件使用ZIP工具压缩一下。所以新版本中，使用解密这个词有些不准确了，准确地讲是解码(decode)而非解密(decrypt)。
 
 ## 使用方法
+* 解码（decode/unpack）
+
 wvsc_blob.bin文件一般在“C:\Program Files (x86)\Acunetix XXX\core\wvsc_blob.bin”
 
 将wvsc_blob.bin文件放到和脚本同一目录，执行脚本即可，输出在以‘awvs_script_blob_decode_’开头的目录下。
 ```bash
 $ python3 awvs-decode.py
+```
+* 重新打包（encode/repack）
+
+指定相应路径进行打包，输出至文件 wvsc_blob-repack.bin
+```bash
+$ python3 awvs-repack.py /path/to/dir/
 ```
 
 ## 目录解读
