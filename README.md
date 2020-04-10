@@ -21,13 +21,22 @@ wvsc_blob.bin文件一般在“C:\Program Files (x86)\Acunetix XXX\core\wvsc_blo
 
 将wvsc_blob.bin文件放到和脚本同一目录，执行脚本即可，输出在以‘awvs_script_blob_decode_’开头的目录下。
 ```bash
-$ python3 awvs-decode.py
+$ python3 awvs-decode.py           # 无依赖版本
 ```
+或者
+```bash
+$ python3 awvs-decode-protoc.py    # 依赖protobuf包
+```
+
 * 重新打包（encode/repack）
 
 指定相应路径进行打包，输出至文件 wvsc_blob-repack.bin
 ```bash
-$ python3 awvs-repack.py /path/to/dir/
+$ python3 awvs-repack.py /path/to/dir/          # 无依赖版本
+```
+或者
+```bash
+$ python3 awvs-repack-protoc.py /path/to/dir/   # 依赖protobuf包
 ```
 
 ## 目录解读
