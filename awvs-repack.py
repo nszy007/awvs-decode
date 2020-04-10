@@ -7,10 +7,10 @@ def tailor_protobuf_encode(path, content):
     protobuf format:
     message {
         required string name = 1;
-        required string content = 2;
+        required bytes content = 2;
     }
-    name:    tag=(1<<<3)|2 = 10 = 0x0a = '\x0a'
-    content: tag=(2<<<3)|2 = 18 = 0x12 = '\x12'
+    name:    tag=(1<<3)|2 = 10 = 0x0a = '\x0a'
+    content: tag=(2<<3)|2 = 18 = 0x12 = '\x12'
     '''
 
     def encode_int(n):
@@ -19,7 +19,7 @@ def tailor_protobuf_encode(path, content):
             parts.append((n & 0x7f) | 0x80)
             n >>= 7
         if len(parts) > 0: parts[-1] &= 0x7f
-        return bytes(parts)
+        return bytes(parts) if len(parts) else b'\x00'
 
     encode_bytes = lambda s: encode_int(len(s)) + s
     return b'\x0a' + encode_bytes(b'/' + path) + b'\x12' + encode_bytes(content)
