@@ -33,7 +33,7 @@ with open('wvsc_blob-repack.bin', 'wb') as fp:
     for dir_path, _, names in os.walk(input_directory):
         for name in names:
             content = tailor_protobuf_encode(
-                os.path.relpath(os.path.join(dir_path, name).replace("\\", "/"), start=input_directory).encode('utf-8'),
+                os.path.relpath(os.path.join(dir_path, name), start=input_directory).replace("\\", "/").encode('utf-8'),
                 open(os.path.join(dir_path, name), 'rb').read())
             compressed = zlib.compress(content, level=9)
             fp.write(struct.pack('<I', len(compressed)) + compressed)
