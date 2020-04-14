@@ -10,6 +10,7 @@ with open('wvsc_blob-repack.bin', 'wb') as fp:
         for name in names:
             script = script_pb2.wvs_script()
             script.name = '/' + os.path.relpath(os.path.join(dir_path, name), start=input_directory)
+            script.name = script.name.replace("\\", "/")
             script.content = open(os.path.join(dir_path, name), 'rb').read()
             compressed = zlib.compress(script.SerializeToString(), level=9)
             fp.write(struct.pack('<I', len(compressed)) + compressed)
